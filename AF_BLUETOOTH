@@ -1,0 +1,14 @@
+import socket
+
+bmac = "b8:08:cf:3c:7a:c2"
+
+server = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+server.bind((bmac, 4))
+server.listen(1)
+print("listening")
+connection, addr = server.accept()
+print(f"{addr} connected!")
+
+connection.sendall("Hello Bluetooth!".encode())
+print(connection.recv(1024))
+connection.close()
